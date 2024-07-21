@@ -1,0 +1,13 @@
+# Dotenv file
+.env
+
+node_modules
+
+dist
+
+nohup.out
+
+.vscode
+
+public
+.vercel
