@@ -1,3 +1,5 @@
+import { RELAYER_BASE_URL } from '../constants'
+
 export class Fetcher {
   private apiKey: string
 
@@ -5,7 +7,7 @@ export class Fetcher {
     this.apiKey = apiKey
   }
 
-  async fetch(url: string, options?: RequestInit): Promise<Response> {
+  async fetch(endpoint: string, options?: RequestInit) {
     const headers = {
       ...options?.headers,
       'Content-Type': 'application/json',
@@ -17,7 +19,7 @@ export class Fetcher {
       headers,
     }
 
-    const res = await fetch(url, updatedOptions)
+    const res = await fetch(`${RELAYER_BASE_URL}/${endpoint}`, updatedOptions)
     return res.json()
   }
 }

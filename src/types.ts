@@ -3,7 +3,7 @@ import { Address, Hex } from 'viem'
 export type ClientParams = {
   apiKey: string
   validator: Address
-  chainId: number
+  network: number
   account: Address
   accountInitCode: Hex
 }
@@ -30,26 +30,26 @@ type DynamicAction = {
 export type Action = StaticAction | DynamicAction
 
 export type TimeBasedTrigger = {
-  triggerUrl: string
   triggerData: {
     cronExpression: 'string'
-    startDate: number
+    startDate?: number
   }
 }
 
 export type EventBasedTrigger = {
-  triggerUrl: string
   triggerData: {
     query: string
   }
 }
 
-export type CreateTimeBasedTriggerParams = TimeBasedTrigger & {
+export type CreateTimeBasedTriggerParams = {
+  trigger: TimeBasedTrigger
   actions: Action[]
   maxNumberOfExecutions: number
 }
 
-export type CreateEventBasedTriggerParams = EventBasedTrigger & {
+export type CreateEventBasedTriggerParams = {
+  trigger: EventBasedTrigger
   actions: Action[]
   maxNumberOfExecutions: number
 }
@@ -67,4 +67,16 @@ export type Automation =
 export type SignAutomationParams = {
   automationId: string
   signature: Hex
+}
+
+export type AutomationResponse = {
+  id: string
+  account: string
+  validator: string
+  network: number
+  maxNumberOfExecutions: number
+  numberOfExecutionsExecuted: number
+  actions: Action[]
+  trigger: TimeBasedTrigger | EventBasedTrigger
+  active: boolean
 }

@@ -1,7 +1,7 @@
 import { ClientParams } from './types'
 import { Relayer } from './Relayer'
 
-export function createUser(email: string) {}
+export { createUser } from './users'
 
 export function createRelayClient(params: ClientParams): Relayer {
   return new Relayer(params)

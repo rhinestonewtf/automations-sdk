@@ -1,22 +1,94 @@
+import { Address, Hex } from 'viem'
 import { Fetcher } from './common/Fetcher'
-import { Automation, ClientParams, SignAutomationParams } from './types'
+import {
+  Automation,
+  AutomationResponse,
+  ClientParams,
+  SignAutomationParams,
+} from './types'
+import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
+import { UserResponse } from './users'
 
 export class Relayer {
   private fetcher: Fetcher
-  private clientData: ClientParams
+  private clientData: Omit<ClientParams, 'apiKey'>
 
   constructor(params: ClientParams) {
+    const { apiKey, ...clientData } = params
     this.fetcher = new Fetcher(params.apiKey)
-    this.clientData = params
+    this.clientData = clientData
   }
 
-  async createAutomation(automation: Automation) {}
+  async createAutomation(
+    automation: Automation,
+  ): Promise<{ id: string; hash: Hex }> {
+    return this.fetcher.fetch('/automations/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        data: {
+          ...this.clientData,
+          ...automation.data,
+          trigger: {
+            ...automation.data.trigger,
+            triggerUrl: this.getTriggerUrl(automation.type),
+          },
+        },
+      }),
+    })
+  }
 
-  async signAutomation({ automationId, signature }: SignAutomationParams) {}
+  async signAutomation({
+    automationId,
+    signature,
+  }: SignAutomationParams): Promise<void> {
+    return this.fetcher.fetch('/automations/sign', {
+      method: 'POST',
+      body: JSON.stringify({
+        automationId,
+        signature,
+      }),
+    })
+  }
 
-  async deleteAutomation(automationId: string) {}
+  async getActiveAutomations(): Promise<AutomationResponse[]> {
+    return this.fetcher.fetch('/automations/get-active-automations')
+  }
 
-  async getAutomationLogs(automationId: string) {}
+  async getAccountAutomations(account: Address): Promise<AutomationResponse[]> {
+    return this.fetcher.fetch(`/automations/account/${account}`)
+  }
 
-  async deleteUser() {}
+  async getAutomation(automationId: string): Promise<AutomationResponse> {
+    return this.fetcher.fetch(`/automations/${automationId}`)
+  }
+
+  async deleteAutomation(automationId: string): Promise<{ id: string }> {
+    return this.fetcher.fetch(`/automations`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        id: automationId,
+      }),
+    })
+  }
+
+  async getAutomationLogs(automationId: string): Promise<{ result: any }[]> {
+    return this.fetcher.fetch(`/automations/${automationId}/executions`)
+  }
+
+  async deleteUser(): Promise<UserResponse> {
+    return this.fetcher.fetch('/users/remove', {
+      method: 'DELETE',
+    })
+  }
+
+  getTriggerUrl(triggerType: 'time-based' | 'event-based') {
+    switch (triggerType) {
+      case 'time-based':
+        return TIME_BASED_TRIGGER_URL
+      case 'event-based':
+        return EVENT_BASED_TRIGGER_URL
+      default:
+        throw new Error('Invalid trigger type')
+    }
+  }
 }
