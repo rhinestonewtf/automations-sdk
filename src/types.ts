@@ -31,7 +31,7 @@ export type Action = StaticAction | DynamicAction
 
 export type TimeBasedTrigger = {
   triggerData: {
-    cronExpression: 'string'
+    cronExpression: string
     startDate?: number
   }
 }
@@ -76,7 +76,8 @@ export type AutomationResponse = {
   network: number
   maxNumberOfExecutions: number
   numberOfExecutionsExecuted: number
-  actions: Action[]
-  trigger: TimeBasedTrigger | EventBasedTrigger
+  actions: any
+  trigger: any
   active: boolean
+  signed: boolean
 }

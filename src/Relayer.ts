@@ -7,7 +7,7 @@ import {
   SignAutomationParams,
 } from './types'
 import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
-import { UserResponse } from './users'
+import { User } from './users'
 
 export class Relayer {
   private fetcher: Fetcher
@@ -22,7 +22,7 @@ export class Relayer {
   async createAutomation(
     automation: Automation,
   ): Promise<{ id: string; hash: Hex }> {
-    return this.fetcher.fetch('/automations/create', {
+    return this.fetcher.fetch('automations/create', {
       method: 'POST',
       body: JSON.stringify({
         data: {
@@ -40,43 +40,64 @@ export class Relayer {
   async signAutomation({
     automationId,
     signature,
-  }: SignAutomationParams): Promise<void> {
-    return this.fetcher.fetch('/automations/sign', {
+  }: SignAutomationParams): Promise<{ success: boolean }> {
+    return this.fetcher.fetch('automations/sign', {
       method: 'POST',
       body: JSON.stringify({
-        automationId,
+        id: automationId,
         signature,
       }),
     })
   }
 
   async getActiveAutomations(): Promise<AutomationResponse[]> {
-    return this.fetcher.fetch('/automations/get-active-automations')
+    const response = await this.fetcher.fetch(
+      'automations/get-active-automations',
+    )
+
+    return response.map((automation: AutomationResponse) => ({
+      ...automation,
+      actions: JSON.parse(automation.actions),
+      trigger: JSON.parse(automation.trigger),
+    }))
   }
 
   async getAccountAutomations(account: Address): Promise<AutomationResponse[]> {
-    return this.fetcher.fetch(`/automations/account/${account}`)
+    const response = await this.fetcher.fetch(`automations/account/${account}`)
+
+    return response.map((automation: AutomationResponse) => ({
+      ...automation,
+      actions: JSON.parse(automation.actions),
+      trigger: JSON.parse(automation.trigger),
+    }))
   }
 
   async getAutomation(automationId: string): Promise<AutomationResponse> {
-    return this.fetcher.fetch(`/automations/${automationId}`)
+    const automation = await this.fetcher.fetch(`automations/${automationId}`)
+
+    return {
+      ...automation,
+      actions: JSON.parse(automation.actions),
+      trigger: JSON.parse(automation.trigger),
+    }
   }
 
   async deleteAutomation(automationId: string): Promise<{ id: string }> {
-    return this.fetcher.fetch(`/automations`, {
+    return this.fetcher.fetch(`automations`, {
       method: 'DELETE',
       body: JSON.stringify({
         id: automationId,
+        fullDelete: true,
       }),
     })
   }
 
   async getAutomationLogs(automationId: string): Promise<{ result: any }[]> {
-    return this.fetcher.fetch(`/automations/${automationId}/executions`)
+    return this.fetcher.fetch(`automations/${automationId}/executions`)
   }
 
-  async deleteUser(): Promise<UserResponse> {
-    return this.fetcher.fetch('/users/remove', {
+  async deleteUser(): Promise<User> {
+    return this.fetcher.fetch('users/remove', {
       method: 'DELETE',
     })
   }

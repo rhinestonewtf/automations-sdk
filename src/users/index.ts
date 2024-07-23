@@ -1,12 +1,12 @@
 import { RELAYER_BASE_URL } from '../constants'
 
-export type UserResponse = {
+export type User = {
   id: string
   email: string
   apiKey: string
 }
 
-export const createUser = async (email: string): Promise<UserResponse> => {
+export const createUser = async (email: string): Promise<User> => {
   const res = await fetch(`${RELAYER_BASE_URL}/users/create`, {
     headers: {
       'Content-Type': 'application/json',
