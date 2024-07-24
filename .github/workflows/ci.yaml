@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  test:
+    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-test.yaml@main'
+
+  size:
+    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-size.yaml@main'
