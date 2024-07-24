@@ -13,10 +13,6 @@ export class Relayer {
   private clientData: Omit<ClientParams, 'apiKey'>
 
   constructor(params: ClientParams) {
-    if (params.network !== 11155111) {
-      throw new Error('Only sepolia chain 11155111 is supported')
-    }
-
     const { apiKey, ...clientData } = params
     this.fetcher = new Fetcher(params.apiKey)
     this.clientData = clientData
