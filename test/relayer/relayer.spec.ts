@@ -1,22 +1,18 @@
-import { createUser, User } from '../../src/users'
+import * as dotenv from 'dotenv'
 import { createRelayClient } from '../../src/index'
 import { Relayer } from '../../src/Relayer'
 
+dotenv.config()
+
 describe('Relayer Service', () => {
-  let user: User
   let relayClient: Relayer
   let automationId: string
   const account = '0xc2b17e73603dccc195118a36f3203134fd7985f5'
 
   beforeAll(async () => {
-    // create user
-    const email = 'yass1@test.com'
-    user = await createUser(email)
-
-    // create relayer client
     relayClient = createRelayClient({
       account,
-      apiKey: user.apiKey,
+      apiKey: process.env.RELAYER_API_KEY!,
       accountInitCode: '0x',
       network: 11155111,
       validator: '0x503b54Ed1E62365F0c9e4caF1479623b08acbe77',
@@ -26,7 +22,6 @@ describe('Relayer Service', () => {
   afterAll(async () => {
     // cleanup
     await relayClient.deleteAutomation(automationId)
-    await relayClient.deleteUser()
   })
 
   it('should create a new automation', async () => {

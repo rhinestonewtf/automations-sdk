@@ -7,13 +7,16 @@ import {
   SignAutomationParams,
 } from './types'
 import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
-import { User } from './users'
 
 export class Relayer {
   private fetcher: Fetcher
   private clientData: Omit<ClientParams, 'apiKey'>
 
   constructor(params: ClientParams) {
+    if (params.network !== 11155111) {
+      throw new Error('Only sepolia chain 11155111 is supported')
+    }
+
     const { apiKey, ...clientData } = params
     this.fetcher = new Fetcher(params.apiKey)
     this.clientData = clientData
@@ -94,12 +97,6 @@ export class Relayer {
 
   async getAutomationLogs(automationId: string): Promise<{ result: any }[]> {
     return this.fetcher.fetch(`automations/${automationId}/executions`)
-  }
-
-  async deleteUser(): Promise<User> {
-    return this.fetcher.fetch('users/remove', {
-      method: 'DELETE',
-    })
   }
 
   getTriggerUrl(triggerType: 'time-based' | 'event-based') {

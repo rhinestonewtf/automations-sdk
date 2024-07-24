@@ -6,7 +6,7 @@ export type User = {
   apiKey: string
 }
 
-export const createUser = async (email: string): Promise<User> => {
+const createUser = async (email: string): Promise<User> => {
   const res = await fetch(`${RELAYER_BASE_URL}/users/create`, {
     headers: {
       'Content-Type': 'application/json',
