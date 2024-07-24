@@ -1,13 +1,19 @@
-# Dotenv file
-.env
-
 node_modules
+_cjs
+_esm
+_types
+tsconfig*.tsbuildinfo
+.DS_Store
 
-dist
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.envrc
 
-nohup.out
+# tests
+coverage
 
-.vscode
-
-public
-.vercel
+# docs
