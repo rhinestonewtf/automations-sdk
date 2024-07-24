@@ -7,7 +7,6 @@ import {
   SignAutomationParams,
 } from './types'
 import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
-import { User } from './users'
 
 export class Relayer {
   private fetcher: Fetcher
@@ -94,12 +93,6 @@ export class Relayer {
 
   async getAutomationLogs(automationId: string): Promise<{ result: any }[]> {
     return this.fetcher.fetch(`automations/${automationId}/executions`)
-  }
-
-  async deleteUser(): Promise<User> {
-    return this.fetcher.fetch('users/remove', {
-      method: 'DELETE',
-    })
   }
 
   getTriggerUrl(triggerType: 'time-based' | 'event-based') {
