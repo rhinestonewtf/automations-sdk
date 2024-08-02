@@ -11,3 +11,8 @@ nohup.out
 
 public
 .vercel
+
+coverage/
+src/_cjs/
+src/_esm/
+src/_types/
