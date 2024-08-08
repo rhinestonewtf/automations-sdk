@@ -1,16 +1,16 @@
 import * as dotenv from 'dotenv'
-import { createRelayClient } from '../../src/index'
-import { Relayer } from '../../src/Relayer'
+import { createAutomationClient } from '../../src/index'
+import { Automation } from '../../src/Automation'
 
 dotenv.config()
 
-describe('Relayer Service', () => {
-  let relayClient: Relayer
+describe('Automation Service', () => {
+  let relayClient: Automation
   let automationId: string
   const account = '0xc2b17e73603dccc195118a36f3203134fd7985f5'
 
   beforeAll(async () => {
-    relayClient = createRelayClient({
+    relayClient = createAutomationClient({
       account,
       apiKey: process.env.RELAYER_API_KEY!,
       accountInitCode: '0x',
@@ -53,9 +53,8 @@ describe('Relayer Service', () => {
   })
 
   it('should sign automation', async () => {
-    const automationBeforeSigning = await relayClient.getAutomation(
-      automationId,
-    )
+    const automationBeforeSigning =
+      await relayClient.getAutomation(automationId)
 
     expect(automationBeforeSigning.signed).toEqual(false)
     expect(automationBeforeSigning.active).toEqual(false)
