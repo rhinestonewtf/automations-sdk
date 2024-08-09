@@ -32,7 +32,7 @@ export type Action = StaticAction | DynamicAction
 export type TimeBasedTrigger = {
   triggerData: {
     cronExpression: string
-    startDate?: number
+    startDate: number
   }
 }
 
