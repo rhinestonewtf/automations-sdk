@@ -5,7 +5,12 @@
 
 **A TypeScript library for using the Rhinestone Automations Service**
 
-todo
+The Rhinestone Automations Service allows you to create automations that will be executed on a smart account based on a trigger. Exisiting triggers include:
+
+- **Time-based trigger**: Execute an automation at a specified time interval
+- **Event-based trigger**: Execute an automation based on an event emitted onchain
+
+This SDK makes it easy to interact with the Rhinestone Automations Service and create, sign and manage automations.
 
 ## Using the Automations SDK
 
