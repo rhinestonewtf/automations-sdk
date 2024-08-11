@@ -1,4 +1,4 @@
-import { RELAYER_BASE_URL } from '../constants'
+import { AUTOMATIONS_BASE_URL } from '../constants'
 
 export class Fetcher {
   private apiKey: string
@@ -19,7 +19,10 @@ export class Fetcher {
       headers,
     }
 
-    const res = await fetch(`${RELAYER_BASE_URL}/${endpoint}`, updatedOptions)
+    const res = await fetch(
+      `${AUTOMATIONS_BASE_URL}/${endpoint}`,
+      updatedOptions,
+    )
     return res.json()
   }
 }

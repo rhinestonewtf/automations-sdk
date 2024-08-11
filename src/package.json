@@ -1,5 +1,5 @@
 {
-  "name": "@rhinestone/relay-sdk",
+  "name": "@rhinestone/automations-sdk",
   "version": "0.0.1",
   "description": "todo",
   "author": {
@@ -37,13 +37,13 @@
   "peerDependencies": {
     "viem": "^2.17.8"
   },
-  "homepage": "https://docs.rhinestone.wtf/relay-sdk",
+  "homepage": "https://docs.rhinestone.wtf/automations-sdk",
   "bugs": {
-    "url": "https://github.com/rhinestonewtf/relay-sdk/issues"
+    "url": "https://github.com/rhinestonewtf/automations-sdk/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rhinestonewtf/relay-sdk.git"
+    "url": "git+https://github.com/rhinestonewtf/automations-sdk.git"
   },
   "publishConfig": {
     "access": "public"
