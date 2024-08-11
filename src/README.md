@@ -3,7 +3,7 @@
 ![Coverage badge lines](https://raw.githubusercontent.com/rhinestonewtf/automations-sdk/main/badges/badge-lines.svg)
 ![Coverage badge functions](https://raw.githubusercontent.com/rhinestonewtf/automations-sdk/main/badges/badge-functions.svg)
 
-**A TypeScript library for using the Rhinestone Automations Service**
+**A TypeScript library for using Rhinestone Automations**
 
 The Rhinestone Automations Service allows you to create automations that will be executed on a smart account based on a trigger. Exisiting triggers include:
 
