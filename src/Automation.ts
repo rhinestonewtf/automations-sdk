@@ -1,14 +1,14 @@
 import { Address, Hex } from 'viem'
 import { Fetcher } from './common/Fetcher'
 import {
-  Automation,
+  Automation as AutomationType,
   AutomationResponse,
   ClientParams,
   SignAutomationParams,
 } from './types'
 import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
 
-export class Relayer {
+export class Automation {
   private fetcher: Fetcher
   private clientData: Omit<ClientParams, 'apiKey'>
 
@@ -19,7 +19,7 @@ export class Relayer {
   }
 
   async createAutomation(
-    automation: Automation,
+    automation: AutomationType,
   ): Promise<{ id: string; hash: Hex }> {
     return this.fetcher.fetch('automations/create', {
       method: 'POST',

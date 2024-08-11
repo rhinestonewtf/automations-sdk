@@ -1,6 +1,6 @@
 import { ClientParams } from './types'
-import { Relayer } from './Relayer'
+import { Automation } from './Automation'
 
-export function createRelayClient(params: ClientParams): Relayer {
-  return new Relayer(params)
+export function createAutomationClient(params: ClientParams): Automation {
+  return new Automation(params)
 }
