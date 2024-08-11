@@ -13,7 +13,7 @@ jobs:
     needs: ['build']
     uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-test.yaml@main'
     with:
-      relayer_api_key: ${{ secrets.RELAYER_API_KEY }}
+      automations_api_key: ${{ secrets.AUTOMATIONS_API_KEY }}
 
   size:
     needs: ['build']
