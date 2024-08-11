@@ -4,7 +4,6 @@ _esm
 _types
 tsconfig*.tsbuildinfo
 .DS_Store
-.vscode
 
 # local env files
 .env
@@ -14,15 +13,8 @@ tsconfig*.tsbuildinfo
 .env.production.local
 .envrc
 
-
 # tests
 coverage
 
 # docs
-public
-.vercel
-
-coverage/
-src/_cjs/
-src/_esm/
-src/_types/
+vercel 
