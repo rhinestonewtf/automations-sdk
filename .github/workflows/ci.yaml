@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  build:
+    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-build.yaml@main'
+
+  test:
+    needs: ['build']
+    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-test.yaml@main'
+    with:
+      automations_api_key: ${{ secrets.AUTOMATIONS_API_KEY }}
+
+  size:
+    needs: ['build']
+    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-size.yaml@main'

@@ -1,0 +1,51 @@
+{
+  "name": "@rhinestone/automations-sdk",
+  "version": "0.0.1",
+  "description": "A TypeScript library for using the Rhinestone Automations Service",
+  "author": {
+    "name": "Rhinestone",
+    "url": "https://rhinestone.wtf"
+  },
+  "license": "MIT",
+  "main": "./_cjs/index.js",
+  "module": "./_esm/index.js",
+  "types": "./_types/index.d.ts",
+  "typings": "./_types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./_types/index.d.ts",
+      "import": "./_esm/index.js",
+      "default": "./_cjs/index.js"
+    },
+    "./account": {
+      "types": "./_types/account/index.d.ts",
+      "import": "./_esm/account/index.js",
+      "default": "./_cjs/account/index.js"
+    },
+    "./module": {
+      "types": "./_types/module/index.d.ts",
+      "import": "./_esm/module/index.js",
+      "default": "./_cjs/module/index.js"
+    },
+    "./common": {
+      "types": "./_types/common/index.d.ts",
+      "import": "./_esm/common/index.js",
+      "default": "./_cjs/common/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "viem": "^2.17.8"
+  },
+  "homepage": "https://docs.rhinestone.wtf/automations-sdk",
+  "bugs": {
+    "url": "https://github.com/rhinestonewtf/automations-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinestonewtf/automations-sdk.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
