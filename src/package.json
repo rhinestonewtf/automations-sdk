@@ -1,7 +1,7 @@
 {
   "name": "@rhinestone/automations-sdk",
   "version": "0.0.1",
-  "description": "A TypeScript library for using the Rhinestone Automations Service",
+  "description": "A TypeScript library for using Rhinestone Automations",
   "author": {
     "name": "Rhinestone",
     "url": "https://rhinestone.wtf"
