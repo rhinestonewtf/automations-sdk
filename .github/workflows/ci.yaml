@@ -11,9 +11,11 @@ jobs:
 
   test:
     needs: ['build']
-    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-test.yaml@main'
-    with:
-      automations_api_key: ${{ secrets.AUTOMATIONS_API_KEY }}
+    steps:
+      - name: Run reusable workflow
+        uses: ./.github/workflows/reusable-workflow.yml
+        env:
+          AUTOMATIONS_API_KEY: ${{ secrets.AUTOMATIONS_API_KEY }}
 
   size:
     needs: ['build']
