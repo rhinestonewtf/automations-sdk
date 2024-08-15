@@ -11,9 +11,31 @@ jobs:
 
   test:
     needs: ['build']
-    uses: 'rhinestonewtf/reusable-workflows/.github/workflows/pnpm-test.yaml@main'
-    with:
-      automations_api_key: ${{ secrets.AUTOMATIONS_API_KEY }}
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Check out the repo'
+        uses: 'actions/checkout@v4'
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+
+      - name: 'Restore the cached build and the node modules'
+        if: ${{ inputs.restore-cache }}
+        uses: 'actions/cache/restore@v4'
+        with:
+          key: 'build-and-modules-${{ github.sha }}'
+          path: ${{ inputs.cache-path }}
+
+      - name: 'Install the Node.js dependencies'
+        run: 'pnpm install'
+
+      - name: Run tests
+        run: pnpm test
+        env:
+          AUTOMATIONS_API_KEY: ${{ secrets.AUTOMATIONS_API_KEY }}
 
   size:
     needs: ['build']
