@@ -12,6 +12,7 @@ describe('Automation Service', () => {
   beforeAll(async () => {
     automationsClient = createAutomationClient({
       account,
+      accountType: 'SAFE',
       apiKey: process.env.AUTOMATIONS_API_KEY!,
       accountInitCode: '0x',
       network: 11155111,
@@ -54,9 +55,8 @@ describe('Automation Service', () => {
   })
 
   it('should sign automation', async () => {
-    const automationBeforeSigning = await automationsClient.getAutomation(
-      automationId,
-    )
+    const automationBeforeSigning =
+      await automationsClient.getAutomation(automationId)
 
     expect(automationBeforeSigning.signed).toEqual(false)
     expect(automationBeforeSigning.active).toEqual(false)
