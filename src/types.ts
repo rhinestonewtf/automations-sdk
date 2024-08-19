@@ -5,6 +5,7 @@ export type ClientParams = {
   validator: Address
   network: number
   account: Address
+  accountType: 'SAFE' | 'KERNEL' | 'NEXUS'
   accountInitCode: Hex
 }
 
