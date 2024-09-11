@@ -6,13 +6,22 @@ import {
   ClientParams,
   SignAutomationParams,
 } from './types'
-import { EVENT_BASED_TRIGGER_URL, TIME_BASED_TRIGGER_URL } from './constants'
+import {
+  ALLOWED_VALIDATORS,
+  EVENT_BASED_TRIGGER_URL,
+  TIME_BASED_TRIGGER_URL,
+} from './constants'
+import { notReachable } from './common/notReachable'
 
 export class Automation {
   private fetcher: Fetcher
   private clientData: Omit<ClientParams, 'apiKey'>
 
   constructor(params: ClientParams) {
+    if (!this.isValidValidator(params)) {
+      throw new Error('Invalid validator')
+    }
+
     const { apiKey, ...clientData } = params
     this.fetcher = new Fetcher(params.apiKey)
     this.clientData = clientData
@@ -103,6 +112,18 @@ export class Automation {
         return EVENT_BASED_TRIGGER_URL
       default:
         throw new Error('Invalid trigger type')
+    }
+  }
+
+  isValidValidator(params: ClientParams) {
+    switch (params.validator) {
+      case ALLOWED_VALIDATORS.OWNABLE_VALIDATOR:
+      case ALLOWED_VALIDATORS.MOCK_VALIDATOR:
+        return true
+      case ALLOWED_VALIDATORS.SMART_SESSION_VALIDATOR:
+        return !!params.permissionId
+      default:
+        return notReachable(params.validator)
     }
   }
 }

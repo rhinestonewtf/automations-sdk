@@ -1,8 +1,13 @@
 import { Address, Hex } from 'viem'
+import { ALLOWED_VALIDATORS } from './constants'
+
+export type Validator =
+  (typeof ALLOWED_VALIDATORS)[keyof typeof ALLOWED_VALIDATORS]
 
 export type ClientParams = {
   apiKey: string
-  validator: Address
+  validator: Validator
+  permissionId?: string
   network: number
   account: Address
   accountType: 'SAFE' | 'KERNEL' | 'NEXUS'
