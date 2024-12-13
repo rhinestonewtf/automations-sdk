@@ -78,6 +78,7 @@ export type SignAutomationParams = {
 export type AutomationResponse = {
   id: string
   account: string
+  hash: Hex
   validator: string
   network: number
   maxNumberOfExecutions: number

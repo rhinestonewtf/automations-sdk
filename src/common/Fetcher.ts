@@ -23,6 +23,10 @@ export class Fetcher {
       `${AUTOMATIONS_BASE_URL}/${endpoint}`,
       updatedOptions,
     )
-    return res.json()
+    if (!res.ok) {
+      throw new Error('Request failed')
+    } else {
+      return res.json()
+    }
   }
 }
